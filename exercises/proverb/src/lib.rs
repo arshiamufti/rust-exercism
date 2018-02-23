@@ -1,10 +1,15 @@
 pub fn build_proverb(list: Vec<&str>) -> String {
+    if list.is_empty() {
+        return String::from("")
+    }
     let mut proverb = String::new();
-    let (first, rest) = list.split_first().unwrap();
+    let (_, rest) = list.split_first().unwrap();
 
-    list.iter().zip(rest.iter()).map ( |a, b|
-        proverb.push_back(format!("For want of a {} the {} was lost.\n", a, b));
-    )
+     for (a, b) in list.iter().zip(rest.iter()) {
+        let s = format!("For want of a {} the {} was lost.\n", a, b);
+        proverb.push_str(&s);
+     }
 
-    proverb.push_back(format!("All for want of a {}.", list[0]))
+    proverb.push_str(&(format!("And all for the want of a {}.", list[0])));
+    proverb
 }
